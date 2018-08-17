@@ -12,11 +12,11 @@ import ObjectiveC
 // MARK: - Calculation
 
 func + (lhs: Date, rhs: Duration) -> Date {
-    return (NSCalendar.autoupdatingCurrent as NSCalendar).dateByAddingDuration(rhs, toDate: lhs, options: .searchBackwards)!
+    return (NSCalendar.current as NSCalendar).dateByAddingDuration(rhs, toDate: lhs, options: .searchBackwards)!
 }
 
 func - (lhs: Date, rhs: Duration) -> Date {
-    return (NSCalendar.autoupdatingCurrent as NSCalendar).dateByAddingDuration(-rhs, toDate: lhs, options: .searchBackwards)!
+    return (NSCalendar.current as NSCalendar).dateByAddingDuration(-rhs, toDate: lhs, options: .searchBackwards)!
 }
 
 func - (lhs: Date, rhs: Date) -> TimeInterval {
@@ -85,7 +85,7 @@ extension Date {
     }
     
     fileprivate var calendar: NSCalendar {
-        return (NSCalendar.autoupdatingCurrent as NSCalendar)
+        return (NSCalendar.current as NSCalendar)
     }
     
     // MARK: - Initialize
@@ -153,49 +153,45 @@ extension Date {
     
     // MARK: - Initialize a date at beginning/end of each units
     
-    public var beginningOfYear: Date {
+    var beginningOfYear: Date {
         return change(month: 1, day: 1, hour: 0, minute: 0, second: 0)
     }
-    
-    public var endOfYear: Date {
+    var endOfYear: Date {
         return (beginningOfYear + 1.year).addingTimeInterval(-1)
     }
     
-    public var beginningOfMonth: Date {
+    var beginningOfMonth: Date {
         return change(day: 1, hour: 0, minute: 0, second: 0)
     }
-    public var endOfMonth: Date {
+    var endOfMonth: Date {
         return (beginningOfMonth + 1.month).addingTimeInterval(-1)
     }
     
-    public var beginningOfWeek: Date {
+    var beginningOfWeek: Date {
         return change(weekday: 1).beginningOfDay
     }
-    
-    public var endOfWeek: Date {
+    var endOfWeek: Date {
         return (beginningOfWeek + 1.week).addingTimeInterval(-1)
     }
     
-    public var beginningOfDay: Date {
+    var beginningOfDay: Date {
         return change(hour: 0, minute: 0, second: 0)
     }
-    
-    public var endOfDay: Date {
+    var endOfDay: Date {
         return (beginningOfDay + 1.day).addingTimeInterval(-1)
     }
     
-    public var beginningOfHour: Date {
+    var beginningOfHour: Date {
         return change(minute: 0, second: 0)
     }
-    public var endOfHour: Date {
+    var endOfHour: Date {
         return (beginningOfHour + 1.hour).addingTimeInterval(-1)
     }
     
-    public var beginningOfMinute: Date {
+    var beginningOfMinute: Date {
         return change(second: 0)
     }
-    
-    public var endOfMinute: Date {
+    var endOfMinute: Date {
         return (beginningOfMinute + 1.minute).addingTimeInterval(-1)
     }
     
@@ -203,8 +199,6 @@ extension Date {
     
     func stringFromFormat(_ format: String) -> String {
         let formatter = DateFormatter()
-        formatter.locale = Locale.autoupdatingCurrent
-        formatter.calendar = Calendar.autoupdatingCurrent
         formatter.dateFormat = format
         return formatter.string(from: self)
     }
